@@ -79,6 +79,80 @@ public class Functions {
         }
     }
 
+    public static int binaryToDecimal(int binaryNo) {
+        int decimalNo = 0;
+        int exp = 0;
+        while (binaryNo > 0) {
+            int lastDigit = binaryNo % 10;
+            decimalNo = decimalNo + (lastDigit * (int) Math.pow(2, exp++));
+            binaryNo = binaryNo / 10;
+        }
+        return decimalNo;
+    }
+
+    public static int decimalToBinary(int decimalNo) {
+        int binaryNo = 0;
+        int exp = 0;
+        while (decimalNo > 0) {
+            int reminder = (int) (decimalNo % 2);
+            binaryNo = binaryNo + (int) (reminder * Math.pow(10, exp++));
+            decimalNo = (int) (decimalNo / 2);
+        }
+        return binaryNo;
+    }
+
+    // Write a Java method to compute the average of three numbers
+    public static int avgOfThree(int a, int b, int c) {
+        return ((a + b + c) / 3);
+    }
+
+    public static boolean isEven(int no) {
+        return no % 2 == 0 ? true : false;
+    }
+
+    public static boolean isPalindrome(int no) {
+        int reverseNo = 0;
+        int userInput = no;
+        int exp = 0;
+        while (no > 0) {
+            System.out.println("no before :" + no);
+            int lastDigit = no % 10;
+            System.out.println("last digit :" + lastDigit);
+            System.out.println("exp++ : " + exp);
+            System.out.println("reverseNo before :" + reverseNo);
+            System.out.println("(int) Math.pow(10, exp++) = " + (int) Math.pow(10, exp));
+            reverseNo = lastDigit + (reverseNo * 10);
+            System.out.println("reverseNo after :" + reverseNo);
+            no = no / 10;
+            System.out.println("no after :" + no);
+            System.out.println("----------------------------");
+        }
+        System.out.println("userInput = " + userInput);
+        System.out.println("reverseNo after = " + reverseNo);
+        if (reverseNo == userInput) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static void javaMath(double a, double b, double c) {
+        System.out.println("Math.min() : " + Math.min(a, b));
+        System.out.println("Math.max() : " + Math.max(b, c));
+        System.out.println("Math.sqrt() : " + Math.sqrt(a));
+        System.out.println("Math.pow() : " + Math.pow(a, b));
+        System.out.println("Math.abs() : " + Math.abs(c));
+    }
+
+    public static int sumOfDigits(int no) {
+        int sum = 0;
+        while (no > 0) {
+            sum = sum + (no % 10);
+            no /= 10;
+        }
+        return sum;
+    }
+
     public static void main(String[] args) {
 
         // printHelloWorld();
@@ -102,7 +176,21 @@ public class Functions {
 
         // System.out.println("Is Prime : " + isPrimeOptimised(40));
 
-        printPrimeInRange(40);
+        // printPrimeInRange(40);
+
+        // System.out.println("Binary to decimal : " + binaryToDecimal(1000101010));
+
+        // System.out.println("Decimal to binary : " + decimalToBinary(15));
+
+        // System.out.println("Average of three no : " + avgOfThree(10, 20, 30));
+
+        // System.out.println("Is number Even : " + isEven(11));
+
+        // System.out.println("Is Palindrome : " + isPalindrome(1234));
+
+        // javaMath(10, 20, -12);
+
+        // System.out.println("Sum of digits : " + sumOfDigits(12345678));
 
     }
 }
@@ -113,3 +201,6 @@ public class Functions {
 // 3. types of functions
 // 4. funciton overloading(using - Parameters & datatypes)(Note : changed
 // returnType)
+// 5. Binary no to decimal logic
+// 6. decimal to binary no
+// 7. scope and block scope
