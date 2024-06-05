@@ -76,17 +76,107 @@ public class JavaArrays {
         }
     }
 
-    public static void printAllSubArray(int arr[]) {
+    public static void pairsInAnArray(int arr[]) {
         int n = arr.length;
+        int pairsCounter = 0;
         for (int i = 0; i < n; i++) {
-            for (int j = i; j < n; j++) {
-                for (int k = i; k <= j; k++) {
-                    System.out.print(arr[k] + " ");
-                }
-                System.out.println();
+            for (int j = i + 1; j < n; j++) {
+                System.out.print("(" + arr[i] + "," + arr[j] + ") ");
+                pairsCounter++;
             }
             System.out.println();
         }
+        System.out.println("Total pairs : " + pairsCounter);
+    }
+
+    public static void printAllSubArray(int arr[]) {
+        int n = arr.length;
+        int subArrayCounter = 0;
+        System.out.println(n);
+        for (int i = 0; i < n; i++) {
+            for (int j = i; j < n; j++) {
+                for (int k = i; k <= j; k++) {
+                    System.out.print(arr[k] + ",");
+                }
+                subArrayCounter++;
+                System.out.print(" ");
+            }
+            System.out.println();
+        }
+        System.out.println("Total subarrays : " + subArrayCounter);
+    }
+
+    public static void printSumOfSubArrays(int arr[]) {
+        int n = arr.length;
+        for (int start = 0; start < n; start++) {
+            for (int end = start; end < n; end++) {
+                int sum = 0;
+                for (int i = start; i <= end; i++) {
+                    System.out.print(arr[i] + ", ");
+                    sum = sum + arr[i];
+                }
+                System.out.print("==> sum is " + sum + ",     ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void printMaxAndMinSumOfSubArrays(int arr[]) {
+        int n = arr.length;
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+        int sum = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = i; j < n; j++) {
+                sum = 0;
+                for (int k = i; k <= j; k++) {
+                    sum = sum + arr[k];
+                }
+                if (sum < min) {
+                    min = sum;
+                }
+                if (sum > max) {
+                    max = sum;
+                }
+            }
+        }
+        System.out.println("Min subarray sum value is : " + min);
+        System.out.println("Max subarray sum value is : " + max);
+    }
+
+    public static void printMaxSumOfSubArrayUsingPrefixMethod(int arr[]) {
+        int prefixArr[] = new int[arr.length];
+        int n = arr.length;
+        int maxSum = Integer.MIN_VALUE;
+        int sum = 0;
+        prefixArr[0] = arr[0];
+        for (int i = 1; i < n; i++) {
+            prefixArr[i] = prefixArr[i - 1] + arr[i];
+        }
+        // printArray(prefixArr); // 1 -1 5 4 7
+        for (int start = 0; start < n; start++) {
+            for (int end = start; end < n; end++) {
+                sum = start == 0 ? prefixArr[end] : prefixArr[end] - prefixArr[start - 1];
+                if (maxSum < sum) {
+                    maxSum = sum;
+                }
+            }
+        }
+        System.out.println("Max subarray sum value is : " + maxSum);
+    }
+
+    public static void printMaxSumOfSubArrayUsingKadensAlgorithm(int arr[]) {
+        int currentSum = 0;
+        int maxSum = Integer.MIN_VALUE;
+        int n = arr.length;
+        for (int i = 0; i < n; i++) {
+            currentSum = currentSum + arr[i];
+            if (currentSum < 0) {
+                currentSum = 0;
+            }
+            maxSum = Math.max(maxSum, currentSum);
+        }
+        System.out.println("Max subarray sum value is : " + maxSum);
     }
 
     public static void main(String[] args) {
@@ -164,10 +254,29 @@ public class JavaArrays {
         // reverseArray(arr);
         // printArray(arr); // op: 10 9 8 7 6 5 4 3 2 1
 
+        // -------------------------------------Array-all-pairs---------------------------------------
+        // int arr[] = { 2, 4, 6, 8, 10 };
+        // pairsInAnArray(arr);
+
         // -------------------------------------Array-print-all-subarray-------------------------------------
-        // int arr[] = { 5, 10, 14, 7 };
+        // int arr[] = { 2, 4, 6, 8, 10 };
         // printAllSubArray(arr);
 
+        // -------------------------------------Array-sum-of-subarray-------------------------------------
+        // int arr[] = { 2, 4, 6, 8, 10 };
+        // printSumOfSubArrays(arr);
+
+        // -------------------------------------Array-print-max-and-min-sum-of-subarray-------------------------------------
+        // int arr[] = { 1, -2, 6, -1, 3 };
+        // printMaxAndMinSumOfSubArrays(arr);
+
+        // -------------------------------------Array-print-max-and-min-sum-of-subarray-using-prefix-array-------------------------------------
+        // int arr[] = { 1, -2, 6, -1, 3 };
+        // printMaxSumOfSubArrayUsingPrefixMethod(arr);
+
+        // -------------------------------------Array-print-max-and-min-sum-of-subarray-using-Kaden's-algorithm-------------------------------------
+        int arr[] = { -2, -3, 4, -1, -2, 1, 5, -3 };
+        printMaxSumOfSubArrayUsingKadensAlgorithm(arr);
     }
 
 }
