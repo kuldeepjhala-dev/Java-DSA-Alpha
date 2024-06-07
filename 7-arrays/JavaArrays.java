@@ -179,6 +179,86 @@ public class JavaArrays {
         System.out.println("Max subarray sum value is : " + maxSum);
     }
 
+    public static void trappedRainWater(int height[]) {
+        int n = height.length;
+        // calculate left max boundary - array
+        int leftMax[] = new int[n];
+        leftMax[0] = height[0];
+        for (int i = 1; i < n; i++) {
+            leftMax[i] = Math.max(height[i], leftMax[i - 1]);
+        }
+
+        printArray(leftMax);
+
+        // calculate right max boundary - array
+        int rightMax[] = new int[n];
+        rightMax[n - 1] = height[n - 1];
+        for (int i = n - 2; i >= 0; i--) {
+            rightMax[i] = Math.max(height[i], rightMax[i + 1]);
+        }
+
+        printArray(rightMax);
+
+        // loop
+        int trappedWater = 0;
+        for (int i = 0; i < n; i++) {
+            // waterLevel = min(leftmax boundary, rightmax boundary)
+            int waterLevel = Math.min(leftMax[i], rightMax[i]);
+            // trappedWater = trappedWater + waterLevel-height[i]
+            trappedWater += waterLevel - height[i];
+        }
+        System.out.println("Trapped water = " + trappedWater);
+    }
+
+    public static void buyAndSellStockBruteForce(int prices[]) {
+        int buyDate = 0, sellDate = 0, maxProfit = Integer.MIN_VALUE;
+        int n = prices.length;
+        for (int i = 0; i < n; i++) {
+            int buyValue = prices[i];
+            for (int j = i + 1; j < n; j++) {
+                int sellValue = prices[j];
+                int profit = sellValue - buyValue;
+                if (profit > maxProfit) {
+                    maxProfit = profit;
+                    buyDate = i;
+                    sellDate = j;
+                }
+            }
+        }
+        System.out.println(
+                "Profit : " + maxProfit +
+                        "\n Stock Buy Date : " + buyDate +
+                        "\n Stock Sell Date : " + sellDate);
+    }
+
+    public static void buyAndSellStockOptimised(int prices[]) {
+        int buyPrice = Integer.MAX_VALUE;
+        int maxProfit = 0;
+        for (int i = 0; i < prices.length; i++) {
+            int sellPrice = prices[i];
+            if (buyPrice < sellPrice) { // profit
+                int profit = sellPrice - buyPrice; // prices[i] is equal to current-price
+                maxProfit = Math.max(maxProfit, profit);
+            } else {
+                buyPrice = sellPrice;
+            }
+        }
+        System.out.println("MaxProft : " + maxProfit);
+    }
+
+    public static boolean duplicateElementCheckerBruteForce(int arr[]) {
+        boolean duplicateStatus = false;
+        int n = arr.length;
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (arr[i] == arr[j]) {
+                    duplicateStatus = true;
+                }
+            }
+        }
+        return duplicateStatus;
+    }
+
     public static void main(String[] args) {
 
         // -------------------------------------Array-basics-------------------------------------
@@ -275,8 +355,26 @@ public class JavaArrays {
         // printMaxSumOfSubArrayUsingPrefixMethod(arr);
 
         // -------------------------------------Array-print-max-and-min-sum-of-subarray-using-Kaden's-algorithm-------------------------------------
-        int arr[] = { -2, -3, 4, -1, -2, 1, 5, -3 };
-        printMaxSumOfSubArrayUsingKadensAlgorithm(arr);
+        // int arr[] = { -2, -3, 4, -1, -2, 1, 5, -3 };
+        // printMaxSumOfSubArrayUsingKadensAlgorithm(arr);
+
+        // -------------------------------------Array-Trapping-Rainwater-------------------------------------
+        // int height[] = { 4, 2, 0, 6, 3, 2, 5 };
+        // trappedRainWater(height);
+
+        // -------------------------------------Array-Buy-And-Sell-Stock-------------------------------------
+        // int prices[] = { 7, 1, 5, 3, 6, 4 };
+        // buyAndSellStockBruteForce(prices);
+        // buyAndSellStockOptimised(prices);
+
+        // -------------------------------------Array-return-true-if-duplicate-element-present-------------------------------------
+        // int nums1[] = { 1, 2, 3, 1 };
+        // System.out.println(duplicateElementCheckerBruteForce(nums1));
+        // int nums2[] = { 1, 2, 3, 4 };
+        // System.out.println(duplicateElementCheckerBruteForce(nums2));
+        // int nums3[] = { 1, 1, 1, 3, 3, 4, 3, 2, 4, 2 };
+        // System.out.println(duplicateElementCheckerBruteForce(nums3));
+
     }
 
 }
