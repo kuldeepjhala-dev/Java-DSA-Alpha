@@ -376,5 +376,4 @@ public class JavaArrays {
         // System.out.println(duplicateElementCheckerBruteForce(nums3));
 
     }
-
 }
