@@ -13,6 +13,17 @@ public class JavaMultidimensionalArray {
         }
     }
 
+    public static void printMatrix(String arr[][]) {
+        int row = arr.length;
+        int col = arr[0].length;
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                System.out.print(arr[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
     public static void searchElement(int matrix[][], int key) {
         int n = matrix.length;
         int m = matrix[0].length;
@@ -139,6 +150,92 @@ public class JavaMultidimensionalArray {
         }
     }
 
+    public static void diagonalSumBruteForce(int matrix[][]) {
+        int sum = 0;
+
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                if (i == j) {
+                    sum += matrix[i][j];
+                } else if (i + j == matrix.length - 1) {
+                    sum += matrix[i][j];
+                }
+            }
+        }
+
+        System.out.println("sum of diagonal is : " + sum);
+    }
+
+    public static void diagonalSumOptimised(int matrix[][]) {
+        int sum = 0;
+        for (int i = 0; i < matrix.length; i++) {
+            sum += matrix[i][i];
+            if (i != matrix.length - 1 - i) {
+                sum += matrix[i][matrix.length - i - 1];
+            }
+        }
+        System.out.println("sum of diagonal is : " + sum);
+    }
+
+    public static void searchInSortedMatrixBruteforce(int matrix[][], int key) {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                if (key == matrix[i][j]) {
+                    System.out.println("Key found!");
+                    return;
+                }
+            }
+        }
+        System.out.println("Key not found!");
+    }
+
+    public static void searchInSortedMatrixOptimised(int matrix[][], int key) {
+        int row = 0, col = matrix[0].length - 1;
+        while (row < matrix.length && col >= 0) {
+            if (matrix[row][col] == key) {
+                System.out.println("Key found!");
+                return;
+            } else if (key < matrix[row][col]) {
+                col--;
+            } else {
+                row++;
+            }
+        }
+        System.out.println("Key not found!");
+    }
+
+    public static void countSpecificNoInArray(int matrix[][], int specificNo) {
+        int count = 0;
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                if (matrix[i][j] == specificNo) {
+                    count++;
+                }
+            }
+        }
+        System.out.println(specificNo + " came " + count + " times int 2d-array");
+    }
+
+    public static void sumOfNumbersInSecondRow(int matrix[][]) {
+        int sum = 0;
+        for (int i = 0; i < matrix[0].length; i++) {
+            sum += matrix[1][i];
+        }
+        System.out.println("Sum of elements in second row is " + sum);
+    }
+
+    public static String[][] traposedMatrix(String matrix[][]) {
+        int n = matrix.length;
+        int m = matrix[0].length;
+        String traposedMatrix[][] = new String[m][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                traposedMatrix[j][i] = matrix[i][j];
+            }
+        }
+        return traposedMatrix;
+    }
+
     public static void main(String[] args) {
 
         // ---------------------------Method-1-declare-2d-array---------------------------
@@ -209,7 +306,7 @@ public class JavaMultidimensionalArray {
         // };
         // smallestElement(arr);
 
-        // ---------------------------spiral-matrix-in-2d-array-kuldeep---------------------------
+        // ---------------------------spiral-matrix-in-2d-array---------------------------
         // int[][] arr = {
         // { 1, 2, 3, 4, 5 },
         // { 6, 7, 8, 9, 10 },
@@ -222,19 +319,50 @@ public class JavaMultidimensionalArray {
         // printMatrix(arr);
         // System.out.println("---------------------------------------");
         // printSpiralMatrixKuldeep(arr);
+        // printSpiralMatrixAlpha(arr);
 
-        // ---------------------------spiral-matrix-in-2d-array-alpha---------------------------
-        int[][] arr = {
-                { 1, 2, 3, 4, 5 },
-                { 6, 7, 8, 9, 10 },
-                { 11, 12, 13, 14, 15 },
-                { 16, 17, 18, 19, 20 },
-                { 21, 22, 23, 24, 25 },
-                { 26, 27, 28, 29, 30 }
-        };
-        System.out.println("--------Printing Array--------");
-        printMatrix(arr);
-        System.out.println("---------------------------------------");
-        printSpiralMatrixAlpha(arr);
+        // ---------------------------Diagonal-sum-in-2d-array---------------------------
+        // int[][] arr = {
+        // { 1, 2, 3, 4 },
+        // { 5, 6, 7, 8 },
+        // { 9, 10, 11, 12 },
+        // { 13, 14, 15, 16 }
+        // };
+        // diagonalSumBruteForce(arr);
+        // diagonalSumOptimised(arr);
+
+        // ---------------------------Search-in-sorted-matrix-in-2d-array---------------------------
+        // int arr[][] = {
+        // { 10, 20, 30, 40 },
+        // { 15, 25, 35, 45 },
+        // { 27, 29, 37, 48 },
+        // { 32, 33, 39, 50 }
+        // };
+        // searchInSortedMatrixBruteforce(arr, 32);
+        // searchInSortedMatrixOptimised(arr, 32);
+
+        // ---------------------------Print-the-number-of-7’s-that-are-in-the-2d-array---------------------------
+        // int arr[][] = {
+        // { 4, 7, 8 },
+        // { 8, 8, 7 },
+        // { 7, 2, 1 }
+        // };
+        // int specificNo = 7;
+        // countSpecificNoInArray(arr, specificNo);
+
+        // ---------------------------Print-out-the-sum-of-the-numbers-in-the-second-row-of-the-“nums”-array---------------------------
+        // int[][] nums = { { 1, 4, 9 }, { 11, 4, 3 }, { 2, 2, 3 } };
+        // sumOfNumbersInSecondRow(nums);
+
+        // ---------------------------Find-Transpose-of-a-Matrix---------------------------
+        // String arr[][] = {
+        // { "a11", "a12", "a13" },
+        // { "a21", "a22", "a23" }
+        // };
+        // System.out.println("-----Before-Trapose-----");
+        // printMatrix(arr);
+        // arr = traposedMatrix(arr);
+        // System.out.println("-----After-Trapose-----");
+        // printMatrix(arr);
     }
 }
