@@ -145,7 +145,7 @@ public class Strings {
         return;
     }
 
-    public static void isAnagtamAlpha(String s1, String s2) {
+    public static void isAnagramAlpha(String s1, String s2) {
         s1 = s1.toLowerCase();
         s2 = s2.toLowerCase();
         if (s1.length() != s2.length()) {
@@ -264,7 +264,7 @@ public class Strings {
         // isAnagram(str1, str2);
         // String s1 = "race";
         // String s2 = "care";
-        // isAnagtamAlpha(s1, s2);
+        // isAnagramAlpha(s1, s2);
 
     }
 }
