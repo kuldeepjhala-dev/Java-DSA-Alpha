@@ -391,7 +391,8 @@ public class Recursion {
         // System.out.print(countSubstrs(str, 0, n - 1, n));
 
         // --------------Tower-of-hanoi-------------
-        int n = 3;
-        towerOfHanoi(n, "A", "B", "C");
+        // int n = 3;
+        // towerOfHanoi(n, "A", "B", "C");
+
     }
 }
