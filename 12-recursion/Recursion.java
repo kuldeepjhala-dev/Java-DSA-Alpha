@@ -305,6 +305,65 @@ public class Recursion {
         towerOfHanoi(n - 1, helper, src, dest);
     }
 
+    public static int climbStairs(int n) {
+        if (n == 0 || n == 1) {
+            return 1;
+        }
+        int count = climbStairs(n - 1) + climbStairs(n - 2);
+        return count;
+    }
+
+    public static int printMaxInArray(int arr[], int n, int max) {
+        if (arr.length == n) {
+            return max;
+        }
+        if (max < arr[n]) {
+            max = arr[n];
+        }
+        return printMaxInArray(arr, n + 1, max);
+    }
+
+    public static boolean isKeyPresent(String str, int n, String key) {
+        if (str.length() == n) {
+            return false;
+        }
+        if (key.equals(str.charAt(n) + "")) {
+            return true;
+        }
+        return isKeyPresent(str, n + 1, key);
+    }
+
+    public static boolean isSorted(int n, int arr[], int min) {
+        if (n == arr.length) {
+            return true;
+        }
+        if (arr[n] < min) {
+            return false;
+        }
+        min = arr[n];
+        return isSorted(n + 1, arr, min);
+    }
+
+    public static boolean binarySearch(int arr[], int key, int s, int e, int mid) {
+
+        if (s > e) {
+            return false;
+        }
+
+        if (arr[mid] == key) {
+            System.out.println("Found at index: " + mid + ", value is " + arr[mid]);
+            return true;
+        }
+
+        if (arr[mid] > key) {
+            e = mid;
+        } else {
+            s = mid + 1;
+        }
+
+        return binarySearch(arr, key, s, e, ((s + e) / 2));
+    }
+
     public static void main(String[] args) {
 
         // --------------Print-numbers-from-n-to-1-(Decresing-order)--------------
@@ -393,6 +452,35 @@ public class Recursion {
         // --------------Tower-of-hanoi-------------
         // int n = 3;
         // towerOfHanoi(n, "A", "B", "C");
+
+        // --------------Climb-stairs-------------
+        // You are climbing a staircase. It takes n steps to reach the top. Each time
+        // you can either climb 1 or 2 steps. In how many distinct ways can you climb to
+        // the top?
+        // int n = 5;
+        // System.out.print(climbStairs(n));
+
+        // --------------Print-Maximum-In-array-------------
+        // int arr[] = { 1, 22, 3, 4, 5 };
+        // int max = Integer.MIN_VALUE;
+        // System.out.println(printMaxInArray(arr, 0, max));
+
+        // --------------Check-if-key-is-present-in-string-------------
+        // System.out.println(isKeyPresent("kuldeep", 0, "d"));
+        // System.out.println(key.equals(str.charAt(3) + "")); // By concatinating the
+        // char with empty string "", that char
+        // is converted to string
+        // System.out.println(key.equals(String.valueOf(str.charAt(3)))); //Here also
+        // char is converted into string
+
+        // --------------IS-Sorted-------------
+        // int arr[] = { 1, 2, 3, 4, 5 };
+        // int arr2[] = { 2, 7, 3, 8, 0, 1 };
+        // System.out.println(isSorted(0, arr, Integer.MIN_VALUE));
+
+        // --------------Binary-search--------------
+        int arr[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        System.out.println(binarySearch(arr, 10, 0, arr.length - 1, ((0 + arr.length) / 2)));
 
     }
 }
