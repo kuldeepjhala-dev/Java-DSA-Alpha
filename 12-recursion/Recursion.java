@@ -364,6 +364,72 @@ public class Recursion {
         return binarySearch(arr, key, s, e, ((s + e) / 2));
     }
 
+    public static void printSubsequences(String str, String output, int i) {
+        if (i >= str.length()) {
+            System.out.print(output + " ");
+            return;
+        }
+        // Exclude-string
+        printSubsequences(str, output, i + 1);
+
+        // Include-string
+        output = output + str.charAt(i);
+        printSubsequences(str, output, i + 1);
+    }
+
+    public static void printSubsequencesWithSameEndingChar(String str, String output, int i) {
+        if (i >= str.length()) {
+
+            if (!output.equals("")) {
+                int im1 = output.length() - 1;
+                String start = String.valueOf(output.charAt(0));
+                String end = String.valueOf(output.charAt(im1));
+
+                if (start.equals(end)) {
+                    System.out.print(output + " ");
+                }
+            } else {
+                System.out.print("_" + " ");
+            }
+
+            return;
+        }
+        // Exclude-string
+        printSubsequencesWithSameEndingChar(str, output, i + 1);
+
+        // Include-string
+        output = output + str.charAt(i);
+        printSubsequencesWithSameEndingChar(str, output, i + 1);
+    }
+
+    public static int countAndPrintSubsequencesWithSameEndingChar(String str, String output, int i) {
+        int count = 0;
+        if (i >= str.length()) {
+            if (!output.equals("")) {
+                int im1 = output.length() - 1;
+                String start = String.valueOf(output.charAt(0));
+                String end = String.valueOf(output.charAt(im1));
+
+                if (start.equals(end)) {
+                    System.out.print(output + " ");
+                    count++;
+                }
+            } else {
+                System.out.print("_" + " ");
+            }
+            return count;
+        }
+
+        // Exclude current character
+        count += countAndPrintSubsequencesWithSameEndingChar(str, output, i + 1);
+
+        // Include current character
+        output = output + str.charAt(i);
+        count += countAndPrintSubsequencesWithSameEndingChar(str, output, i + 1);
+
+        return count;
+    }
+
     public static void main(String[] args) {
 
         // --------------Print-numbers-from-n-to-1-(Decresing-order)--------------
@@ -445,9 +511,9 @@ public class Recursion {
         // }
         // System.out.println(count);
         // Recursive-Approach
-        // String str = "abcab";
-        // int n = str.length();
-        // System.out.print(countSubstrs(str, 0, n - 1, n));
+        // String str1 = "abcab";
+        // int n = str1.length();
+        // System.out.print(countSubstrs(str1, 0, n - 1, n));
 
         // --------------Tower-of-hanoi-------------
         // int n = 3;
@@ -479,8 +545,28 @@ public class Recursion {
         // System.out.println(isSorted(0, arr, Integer.MIN_VALUE));
 
         // --------------Binary-search--------------
-        int arr[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-        System.out.println(binarySearch(arr, 10, 0, arr.length - 1, ((0 + arr.length) / 2)));
+        // int arr[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        // System.out.println(binarySearch(arr, 10, 0, arr.length - 1, ((0 + arr.length)
+        // / 2)));
 
+        // --------------Print-all-possible-substrings--------------
+        // String str = "abc";
+        // String outputStr = "";
+        // int i = 0;
+        // printSubsequences(str, outputStr, i);
+
+        // --------------Print-all-possible-substrings-start-and-end-with-same-character--------------
+        // Note, here string is not continuously subsequence.
+        // String str = "abcab";
+        // String outputStr = "";
+        // int i = 0;
+        // printSubsequencesWithSameEndingChar(str, outputStr, i);
+
+        // --------------Print-count-of-all-possible-substrings-start-and-end-with-same-character---------------
+        // Note, here string is not continuously subsequence.
+        // String str = "abcab";
+        // String output = "";
+        // int totalCount = countAndPrintSubsequencesWithSameEndingChar(str, output, 0);
+        // System.out.println("\nTotal count: " + totalCount);
     }
 }
