@@ -430,6 +430,33 @@ public class Recursion {
         return count;
     }
 
+    public static int returnMinimumOfTwo(int a, int b) {
+        if (a < b) {
+            return a;
+        } else {
+            return b;
+        }
+    }
+
+    public static int returnMinimumNoCountRequiredToReachTarget(int arr[], int target) {
+        if (target == 0) {
+            return 0;
+        }
+        if (target < 0) {
+            return Integer.MAX_VALUE;
+        }
+        int minimumCount = Integer.MAX_VALUE;
+        for (int i = 0; i < arr.length; i++) {
+            int counts = returnMinimumNoCountRequiredToReachTarget(arr, target - arr[i]);
+            if (counts != Integer.MAX_VALUE) {
+                // Below ternery operator will return the miminumCount
+                counts = counts + 1;
+                minimumCount = (minimumCount < counts) ? (minimumCount) : (counts);
+            }
+        }
+        return minimumCount;
+    }
+
     public static void main(String[] args) {
 
         // --------------Print-numbers-from-n-to-1-(Decresing-order)--------------
@@ -549,24 +576,36 @@ public class Recursion {
         // System.out.println(binarySearch(arr, 10, 0, arr.length - 1, ((0 + arr.length)
         // / 2)));
 
-        // --------------Print-all-possible-substrings--------------
+        // --------------Print-all-possible-subsequence--------------
         // String str = "abc";
         // String outputStr = "";
         // int i = 0;
         // printSubsequences(str, outputStr, i);
 
-        // --------------Print-all-possible-substrings-start-and-end-with-same-character--------------
+        // --------------Print-all-possible-subsequence-start-and-end-with-same-character--------------
         // Note, here string is not continuously subsequence.
         // String str = "abcab";
         // String outputStr = "";
         // int i = 0;
         // printSubsequencesWithSameEndingChar(str, outputStr, i);
 
-        // --------------Print-count-of-all-possible-substrings-start-and-end-with-same-character---------------
+        // --------------Print-count-of-all-possible-subsequence-start-and-end-with-same-character---------------
         // Note, here string is not continuously subsequence.
         // String str = "abcab";
         // String output = "";
         // int totalCount = countAndPrintSubsequencesWithSameEndingChar(str, output, 0);
         // System.out.println("\nTotal count: " + totalCount);
+
+        // --------------Print-minimum-no-of-element's-sum-required-to-reach-target-sum---------------
+        // You are given an integer array coins representing coins of different
+        // denominations and an integer amount representing a total amount of money.
+        // Return the fewest number of coins that you need to make up that amount. If
+        // that amount of money cannot be made up by any combination of the coins,
+        // return -1.
+        // You may assume that you have an infinite number of each kind of coin.
+        int arr[] = { 1, 2 }; // arr or coins
+        int target = 5;
+        System.out.println(returnMinimumNoCountRequiredToReachTarget(arr, target));
+
     }
 }
