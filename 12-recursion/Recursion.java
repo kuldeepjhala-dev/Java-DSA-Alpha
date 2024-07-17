@@ -430,7 +430,7 @@ public class Recursion {
         return count;
     }
 
-    public static int returnMinimumOfTwo(int a, int b) {
+    public static int minimum(int a, int b) {
         if (a < b) {
             return a;
         } else {
@@ -451,10 +451,46 @@ public class Recursion {
             if (counts != Integer.MAX_VALUE) {
                 // Below ternery operator will return the miminumCount
                 counts = counts + 1;
-                minimumCount = (minimumCount < counts) ? (minimumCount) : (counts);
+                minimumCount = minimum(minimumCount, counts);
             }
         }
         return minimumCount;
+    }
+
+    public static int max(int a, int b) {
+        if (a > b) {
+            return a;
+        } else {
+            return b;
+        }
+    }
+
+    public static int cutIntoSegments(int n, int x, int y, int z) {
+        if (n == 0) {
+            return 0;
+        }
+        if (n < 0) {
+            return Integer.MIN_VALUE;
+        }
+        int ans1 = cutIntoSegments(n - x, x, y, z) + 1;
+        int ans2 = cutIntoSegments(n - y, x, y, z) + 1;
+        int ans3 = cutIntoSegments(n - z, x, y, z) + 1;
+        // Below funcion will return the max value
+        int ans = max(ans1, max(ans2, ans3));
+        return ans;
+    }
+
+    public static void maxSumOfNonAdjacentElements(int arr[], int i, int sum) {
+        int maxSum = Integer.MIN_VALUE;
+        if (i >= arr.length) {
+            maxSum = max(sum, maxSum);
+            System.out.println(maxSum);
+            return;
+        }
+        // include
+        maxSumOfNonAdjacentElements(arr, i + 2, sum + arr[i]);
+        // exclude
+        maxSumOfNonAdjacentElements(arr, i + 1, sum);
     }
 
     public static void main(String[] args) {
@@ -603,9 +639,31 @@ public class Recursion {
         // that amount of money cannot be made up by any combination of the coins,
         // return -1.
         // You may assume that you have an infinite number of each kind of coin.
-        int arr[] = { 1, 2 }; // arr or coins
-        int target = 5;
-        System.out.println(returnMinimumNoCountRequiredToReachTarget(arr, target));
+        // int arr[] = { 1, 2 }; // arr or coins
+        // int target = 5;
+        // System.out.println(returnMinimumNoCountRequiredToReachTarget(arr, target));
 
+        // --------------cut-into-segments---------------
+        // Determine max no(max-count) of segments you can make of rod whose length is
+        // 'n' provided, that each segment should be of length x,y,z.
+        // int n = 7;
+        // int x = 5;
+        // int y = 2;
+        // int z = 2;
+        // int ans = cutIntoSegments(n, x, y, z);
+        // if (ans < 0) {
+        // System.out.println("Not possible");
+        // } else {
+        // System.out.println(ans);
+        // }
+
+        // --------------Max-sum-of-non-adjacent-elements---------------
+        // we have to return the max sum of subsequence in which no two elements are
+        // adjacent.
+        int arr[] = { 2, 1, 4, 9 };
+        int sum = 0;
+        int i = 0;
+        int maxSum = Integer.MIN_VALUE;
+        maxSumOfNonAdjacentElements(arr, i, sum);
     }
 }
