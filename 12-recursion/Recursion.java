@@ -660,10 +660,15 @@ public class Recursion {
         // --------------Max-sum-of-non-adjacent-elements---------------
         // we have to return the max sum of subsequence in which no two elements are
         // adjacent.
-        int arr[] = { 2, 1, 4, 9 };
-        int sum = 0;
-        int i = 0;
-        int maxSum = Integer.MIN_VALUE;
-        maxSumOfNonAdjacentElements(arr, i, sum);
+        // int arr[] = { 2, 1, 4, 9 };
+        // int sum = 0;
+        // int i = 0;
+        // int maxSum = Integer.MIN_VALUE;
+        // maxSumOfNonAdjacentElements(arr, i, sum); //In op we have 11 which is the ans
+
+        // --------------last-occurance-of-char---------------
+        String str = "abcddedg";
+        char x = 'd';
+        
     }
 }

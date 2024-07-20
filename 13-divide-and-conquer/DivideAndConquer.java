@@ -1,6 +1,15 @@
 public class DivideAndConquer {
 
+    public static void printArray(String definition, int arr[]) {
+        System.out.print(definition + " => ");
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
+    }
+
     public static void mergeSort(int arr[], int low, int high) {
+        // Watch-striver-video
         if (low >= high) {
             return;
         }
@@ -45,18 +54,17 @@ public class DivideAndConquer {
         }
     }
 
+    
+
     public static void main(String[] args) {
+
+        // ---------------------------Merge-Sort---------------------------
         int arr[] = { 9, 4, 7, 6, 3, 1, 5 };
-        System.out.print("Before: ");
-        for (int i = 0; i < arr.length; i++) {
-            System.out.print(arr[i] + " ");
-        }
+        printArray("Before", arr);
         mergeSort(arr, 0, arr.length - 1);
-        System.out.println();
-        System.out.print("After : ");
-        for (int i = 0; i < arr.length; i++) {
-            System.out.print(arr[i] + " ");
-        }
+        printArray("After", arr);
+        // ---------------------------Quick-Sort---------------------------
+
     }
 
 }
